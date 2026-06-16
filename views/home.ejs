@@ -1,0 +1,31 @@
+<html>
+<head></head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Type</th>
+                <th>Mode</th>
+                <th>Release Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% table.forEach(game => { %>
+                <tr>
+                    <td><%= game.id %></td>
+                    <td><%= game.game_name %></td>
+                    <td><%= game.genre %></td>
+                    <td><%= game.game_type %></td>
+                    <td><%= game.game_mode %></td>
+                    <td><%= game.release_date %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a type="button" href="/add_games">Add Games</a>
+</body>
+</html>

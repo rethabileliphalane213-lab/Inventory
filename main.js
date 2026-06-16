@@ -29,7 +29,11 @@ con.connect().then(()=>{
 
 
 // async functions
+const selectAll=async()=>{
 
+   const table=await con.query("SELECT * FROM pc_games")
+   return table
+}
 
 async function getGameType(type){
     if(type==="all"){
@@ -45,10 +49,10 @@ async function postGames(gamesObj){
 }
 // 
 
-app.get("/",(req,res)=>{
-
-
-res.render("form")
+app.get("/",async(req,res)=>{
+const table= await selectAll()
+console.log(table)
+res.render("home",{table:table.rows})
 
 })
 
@@ -62,34 +66,34 @@ app.post("/",async(req,res)=>{
 })
 
 
-/*
-app.get("/all",async(req,res)=>{
-const allgames=queries
-    res.render("pc_games",{all_games})
 
-
-})
-    */
 
 
 app.get("/add_games",(req,res)=>{
     res.render("add_games")
 })
-app.post("/add_games",async(req,res)=>{
-    const {name,genre,type,mode,date}=req.body
-    console.log(req.body)
+app.post("/add_games", async (req, res) => {
+  const { name, genre, type, mode, date } = req.body;
 
-    await con.query(`INSERT INTO pc_games(game_name,genre,game_mode,game_type,release_date) VALUES("${name}","${genre}","${mode}","${type}",${type})`,(err,res)=>{
-        if(err){
-            console.log(err)
-        }
-        else{
-            console.log("Package inserted Succesfully")
-        }  
-    })
-    res.redirect("/")
+  try {
+    await con.query(
+      `INSERT INTO pc_games
+       (game_name, genre, game_mode, game_type, release_date)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [name, genre, mode, type, date]
+    );
 
-})
+    console.log("Package inserted Successfully");
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Database error");
+  }
+});
+
+
+
+
 
 const port=1000||2000
 

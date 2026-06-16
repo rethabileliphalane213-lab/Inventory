@@ -4,13 +4,27 @@
         <table>
             <thead>
                 <tr>
-                    <th>Games</th>
+                    <th>id</th>
+                    <th>Game Name</th>
+                    <th>Game Genre</th>
+                    <th>Game Type</th>
+                    <th>Game Mode</th>
+                    <th>Release Date</th>
+                  
+
                 </tr>
             </thead>
             <tb>
                 <%  games.forEach(game=>{%>
                     <tr>
-                        <td> <%=game %></td>
+                        <% console.log(game) %>
+                        <td> <%=game.id %></td>
+                        <td> <%=game.game_name %></td>
+                        <td> <%=game.genre %></td>
+                        <td> <%=game.game_type %></td>
+                        <td> <%=game.game_mode %></td>
+                        <td> <%=game.release_date %></td>
+
                     </tr>
 
                 <%})%>
