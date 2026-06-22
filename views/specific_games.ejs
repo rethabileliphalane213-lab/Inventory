@@ -1,16 +1,25 @@
 <html>
-    <head></head>
+    <head>
+              <link rel="stylesheet" href="/styles.css">
+    </head>
     <body>
         <table>
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>Game Name</th>
-                    <th>Game Genre</th>
-                    <th>Game Type</th>
-                    <th>Game Mode</th>
-                    <th>Release Date</th>
-                  
+                          <th>ID</th>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Type</th>
+                <th>Mode</th>
+                <th>Release Date</th>
+                <th>Publisher</th>
+                <th>Price</th>
+                <th>Stock Qty</th>
+                <th>Platform</th>
+                <th>Rating</th>
+                <th>Downloads</th>
+
+
 
                 </tr>
             </thead>
@@ -18,12 +27,20 @@
                 <%  games.forEach(game=>{%>
                     <tr>
                         <% console.log(game) %>
-                        <td> <%=game.id %></td>
-                        <td> <%=game.game_name %></td>
-                        <td> <%=game.genre %></td>
-                        <td> <%=game.game_type %></td>
-                        <td> <%=game.game_mode %></td>
-                        <td> <%=game.release_date %></td>
+                         <td><%= game.id %></td>
+                    <td><%= game.game_name %></td>
+                    <td><%= game.genre %></td>
+                    <td><%= game.game_type %></td>
+                    <td><%= game.game_mode %></td>
+                    <td><%= game.release_date %></td>
+                    <td><%= game.publisher %></td>
+                    <td><%= game.price %></td>
+                    <td><%= game.qty %></td>
+                    <td><%= game.platform %></td>
+                    <td><%= game.ratings %></td>
+                    <td><%= game.publisher %></td>
+                    <td><%= game.downloads %></td>
+
 
                     </tr>
 

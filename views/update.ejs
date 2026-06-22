@@ -1,0 +1,58 @@
+<html>
+    <head>
+             <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+      
+<form method="post">
+  <h3>Search Game to Update</h3>
+    <div>
+        <label for="id">Search By Id</label>
+        <input type="text" name="id" id="id"/>
+    </div>
+
+      <h3>New Game Info</h3>
+     <div>
+        <label for="name">Search By Name</label>
+        <input type="text" name="name" id="name"/>
+    </div>
+     <div>
+        <label for="id">Search By Genre</label>
+        <select name="genre" id="genre">
+        <option value="action">Action</option>
+        <option value="racing">Racng</option>
+        <option value="sports">Sports</option>
+        <option value="fighting">Fighting</option>
+        <option value="puzzle">puzzle</option>
+        <option value="other">other</option>
+       </select>
+    </div>
+     <div>
+        <label for="id">Search By type </label>
+       <select name="type" id="type">
+      
+        <option value="Offline">Ofline Games</option>
+        <option value="online">Online Games</option>
+       </select>
+    </div>
+
+
+      <div>
+        <label for="id">Search By Mode </label>
+       <select name="mode" id="mode">
+      
+        <option value="singleplayer">Single Player</option>
+        <option value="multiplayer">Multiplayer</option>
+       </select>
+    </div>
+      <div id="date-container">
+        <label for="date">Enter Game Release Date</label>
+        <input type="date" id="date" name="date" required>
+    </div>
+
+
+
+    <button type="submit">Submit</button>
+</form>
+    </body>
+</html>

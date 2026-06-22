@@ -1,24 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+     <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    
 <form method="post">
     <div id="name-container">
         <label for="name">Enter Game Name</label>
         <input type="text" id="name" name="name" required>
     </div>
-    <div id="genre-container">
-        <label for="genre">Enter Game Genre</label>
-        <input type="text" id="name" name="genre" required  placeholder="Action">
+        <div>
+        <label for="id">Game Genre</label>
+        <select name="genre" id="genre">
+        <option value="action">Action</option>
+        <option value="racing">Racng</option>
+        <option value="sports">Sports</option>
+        <option value="fighting">Fighting</option>
+        <option value="puzzle">puzzle</option>
+        <option value="other">other</option>
+       </select>
     </div>
-    <div id="name-container">
-        <label for="type">Enter Game Type</label>
-        <input type="text" id="type" name="type" required placeholder="offline">
+        <label for="id">Game type </label>
+       <select name="type" id="type">
+      
+        <option value="Offline">Ofline Games</option>
+        <option value="online">Online Games</option>
+       </select>
     </div>
-    <div id="mode-container">
-        <label for="mode">Enter Game Type Mode</label>
-        <input type="text" id="mode" name="mode" required placeholder="Single player">
+
+
+    <div>
+        <label for="id">Search By Mode </label>
+       <select name="mode" id="mode">
+      
+        <option value="singleplayer">Single Player</option>
+        <option value="multiplayer">Multiplayer</option>
+       </select>
     </div>
+
+
+
     <div id="date-container">
         <label for="date">Enter Game Release Date</label>
         <input type="date" id="date" name="date" required>
     </div>
 
+        <div id="publisher-container">
+        <label for="publisher">Enter Publisher</label>
+        <input type="text" id="publisher" name="publisher" placeholder="Rockstar Games">
+    </div>
+
+        <div id="price-container">
+        <label for="price">Enter Game Price</label>
+        <input type="text" id="price" name="price" >
+    </div>
+
+     <div id="qty-container">
+        <label for="qty">Enter Game Quanity</label>
+        <input type="text" id="qty" name="qty" placeholder="how many games are available" >
+    </div>
+
+     <div id="platform-container">
+        <label for="platform">Enter Game Platform</label>
+        <input type="text" id="platform" name="platform" placeholder="Where to download game" >
+    </div>
+
+     <div id="ratings-container">
+        <label for="ratings">Rate The Game</label>
+        <input type="text" id="ratings" name="ratings" >
+    </div>
+
+     <div id="downloads-container">
+        <label for="downloads">How Many People have Donwloaded the Game</label>
+        <input type="text" id="downloads" name="downloads" >
+    </div>
+
+
     <button type="submit">Insert Game</button>
 </form>
+
+</body>
+</html>

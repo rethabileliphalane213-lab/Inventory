@@ -1,15 +1,26 @@
 <html>
-<head></head>
+<head>
+     <link rel="stylesheet" href="/styles.css">
+</head>
 <body>
     <table border="1">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Genre</th>
-                <th>Type</th>
-                <th>Mode</th>
-                <th>Release Date</th>
+                <th class="id">ID</th>
+                <th class="name">Name</th>
+                <th class="genre">Genre</th>
+                <th class="type">Type</th>
+                <th class="mode">Mode</th>
+                <th class="date">Release Date</th>
+                <th class="publisher">Publisher</th>
+                <th class="price">Price</th>
+                <th class="qty">Stock Qty</th>
+                <th class="platform">Platform</th>
+                <th class="rating">Rating</th>
+                <th class="downloads">Downloads</th>
+
+
+
             </tr>
         </thead>
 
@@ -22,10 +33,20 @@
                     <td><%= game.game_type %></td>
                     <td><%= game.game_mode %></td>
                     <td><%= game.release_date %></td>
+                    <td><%= game.publisher %></td>
+                    <td><%= game.price %></td>
+                    <td><%= game.stock_qty %></td>
+                    <td><%= game.platform %></td>
+                    <td><%= game.rating %></td>
+                    <td><%= game.downloads %></td>
+
                 </tr>
             <% }) %>
         </tbody>
     </table>
     <a type="button" href="/add_games">Add Games</a>
+    <a href="/search">Search Game</a>
+    <a href="/update">Update Game Info</a>
+    <a href="delete">Delete Game</a>
 </body>
 </html>
