@@ -1,5 +1,6 @@
 const express=require("express")
 const app=express()
+require("dotenv").config();
 
 const {Pool}=require("pg")
 const {Client}=require("pg")
@@ -20,6 +21,9 @@ const con = new Pool({
     rejectUnauthorized: false
   }
 });
+con.connect()
+  .then(() => console.log("DB connected successfully 🟢"))
+  .catch(err => console.error("DB connection failed 🔴", err));
 
 // async functions
 const selectAll=async()=>{
