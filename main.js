@@ -20,8 +20,7 @@ const con = new Pool({
   ssl: {
     rejectUnauthorized: false
   }
-});
-con.connect()
+}).connect()
   .then(() => console.log("DB connected successfully 🟢"))
   .catch(err => console.error("DB connection failed 🔴", err));
 
