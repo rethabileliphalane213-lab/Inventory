@@ -17,9 +17,9 @@ const all_games = require("./db/queries")
 
 const con = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: process.env.NODE_ENV === "production"
+    ? { rejectUnauthorized: false }
+    : false
 });
 con.connect()
   .then(() => console.log("DB connected successfully 🟢"))
@@ -31,22 +31,28 @@ con.connect()
 
 
 async function initDB() {
-  await con.query(`
-    CREATE TABLE IF NOT EXISTS pc_games (
-      id SERIAL PRIMARY KEY,
-      game_name VARCHAR(100),
-      genre VARCHAR(50),
-      game_mode VARCHAR(50),
-      game_type VARCHAR(50),
-      release_date DATE,
-      publisher VARCHAR(255),
-      price DECIMAL(10,2),
-      stock_qty INT,
-      platform VARCHAR(100),
-      rating DECIMAL(3,2),
-      downloads INT
-    )
-  `);
+  try {
+    await con.query(`
+      CREATE TABLE IF NOT EXISTS pc_games (
+        id SERIAL PRIMARY KEY,
+        game_name VARCHAR(100),
+        genre VARCHAR(50),
+        game_mode VARCHAR(50),
+        game_type VARCHAR(50),
+        release_date DATE,
+        publisher VARCHAR(255),
+        price DECIMAL(10,2),
+        stock_qty INT,
+        platform VARCHAR(100),
+        rating DECIMAL(3,2),
+        downloads INT
+      )
+    `);
+
+    console.log("Table ready 🟢");
+  } catch (err) {
+    console.error("initDB failed 🔴", err);
+  }
 }
 initDB();
 const selectAll=async()=>{
