@@ -14,13 +14,12 @@ app.use(express.urlencoded({extended:true}))
 const queries=require("./db/queries")
 const all_games = require("./db/queries")
 
-const con=new Pool({
-    user:"postgres",
-    host:"localhost",
-    port:5432,
-    password:"rethabilenongs",
-    database:"inventory"
-})
+const con = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 
 // async functions
