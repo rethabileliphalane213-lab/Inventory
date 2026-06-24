@@ -47,7 +47,6 @@ async function initDB() {
       downloads INT
     )
   `);
-  
 }
 initDB();
 const selectAll=async()=>{
