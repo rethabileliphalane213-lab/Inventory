@@ -21,7 +21,6 @@ const con = new Pool({
   }
 });
 
-
 // async functions
 const selectAll=async()=>{
 
