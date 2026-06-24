@@ -26,6 +26,29 @@ con.connect()
   .catch(err => console.error("DB connection failed 🔴", err));
 
 // async functions
+
+
+
+
+async function initDB() {
+  await con.query(`
+    CREATE TABLE IF NOT EXISTS pc_games (
+      id SERIAL PRIMARY KEY,
+      game_name VARCHAR(100),
+      genre VARCHAR(50),
+      game_mode VARCHAR(50),
+      game_type VARCHAR(50),
+      release_date INT,
+      publisher VARCHAR(255),
+      price DECIMAL(10,2),
+      stock_qty INT,
+      platform VARCHAR(100),
+      rating DECIMAL(3,2),
+      downloads INT
+    )
+  `);
+}
+initDB();
 const selectAll=async()=>{
 
    const table=await con.query("SELECT * FROM pc_games")
