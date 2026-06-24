@@ -29,32 +29,18 @@ con.connect()
 
 
 
-
-async function initDB() {
+async function safeInitDB() {
   try {
-    await con.query(`
-      CREATE TABLE IF NOT EXISTS pc_games (
-        id SERIAL PRIMARY KEY,
-        game_name VARCHAR(100),
-        genre VARCHAR(50),
-        game_mode VARCHAR(50),
-        game_type VARCHAR(50),
-        release_date DATE,
-        publisher VARCHAR(255),
-        price DECIMAL(10,2),
-        stock_qty INT,
-        platform VARCHAR(100),
-        rating DECIMAL(3,2),
-        downloads INT
-      )
-    `);
+    await con.query("SELECT 1");
+    console.log("DB connected 🟢");
 
-    console.log("Table ready 🟢");
+    await initDB();
   } catch (err) {
-    console.error("initDB failed 🔴", err);
+    console.error("DB not ready yet 🔴", err.message);
   }
 }
-initDB();
+
+safeInitDB();
 const selectAll=async()=>{
 
    const table=await con.query("SELECT * FROM pc_games")
