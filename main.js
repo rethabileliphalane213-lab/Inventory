@@ -38,7 +38,7 @@ async function initDB() {
       genre VARCHAR(50),
       game_mode VARCHAR(50),
       game_type VARCHAR(50),
-      release_date INT,
+      release_date DATE,
       publisher VARCHAR(255),
       price DECIMAL(10,2),
       stock_qty INT,
@@ -47,6 +47,7 @@ async function initDB() {
       downloads INT
     )
   `);
+  
 }
 initDB();
 const selectAll=async()=>{
@@ -136,11 +137,11 @@ if (result.rows.length === 0) {
 }
 
 const oldGame = result.rows[0]
-const new_name = obj.name?obj.name : oldGame.name
+const new_name = obj.name || oldGame.game_name
 const new_genre = obj.genre || oldGame.genre
-const new_game_mode = obj.mode || oldGame.mode
-const new_game_type = obj.type || oldGame.type
-const new_release = obj.release_date || oldGame.release_date
+const new_game_mode = obj.mode || oldGame.game_mode
+const new_game_type = obj.type || oldGame.game_type
+const new_release = obj.date || oldGame.release_date
 
 
     await con.query(
@@ -202,10 +203,11 @@ app.post("/add_games", async (req, res) => {
 
     console.log("Package inserted Successfully");
     res.redirect("/");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Database error");
-  }
+  }catch (err) {
+  console.error("INSERT ERROR 🔴", err.message);
+  console.error(err); 
+  res.status(500).send(err.message);
+}
 });
 
 
