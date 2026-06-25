@@ -20,26 +20,16 @@ const con = new Pool({
   ssl: {
     rejectUnauthorized: false
   }
-}).connect()
+});
+
+con.connect()
   .then(() => console.log("DB connected successfully 🟢"))
   .catch(err => console.error("DB connection failed 🔴", err));
-
 // async functions
 
 
 
-async function safeInitDB() {
-  try {
-    await con.query("SELECT 1");
-    console.log("DB connected 🟢");
 
-    await initDB();
-  } catch (err) {
-    console.error("DB not ready yet 🔴", err.message);
-  }
-}
-
-safeInitDB();
 const selectAll=async()=>{
 
    const table=await con.query("SELECT * FROM pc_games")
