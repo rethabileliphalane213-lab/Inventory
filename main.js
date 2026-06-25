@@ -15,6 +15,8 @@ app.use(express.urlencoded({extended:true}))
 const queries=require("./db/queries")
 const all_games = require("./db/queries")
 
+console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
+
 const con = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
