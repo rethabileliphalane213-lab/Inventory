@@ -19,6 +19,9 @@ console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
 
 const con = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 (async () => {
@@ -38,6 +41,14 @@ console.log(process.env.DATABASE_URL.slice(0, 30) + "...");
 
 // async functions
 
+(async () => {
+  try {
+    const result = await con.query("SELECT COUNT(*) FROM pc_games");
+    console.log(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
+})();
 
 
 
