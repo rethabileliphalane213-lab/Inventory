@@ -41,14 +41,10 @@ console.log(process.env.DATABASE_URL.slice(0, 30) + "...");
 
 // async functions
 
-(async () => {
-  try {
-    const result = await con.query("SELECT COUNT(*) FROM pc_games");
-    console.log(result.rows);
-  } catch (err) {
-    console.error(err);
-  }
-})();
+
+
+
+
 
 
 
@@ -270,7 +266,7 @@ res.redirect("/")
 
 
 
-const port=1000||2000
+const port = process.env.PORT || 1000
 
 app.listen(port,()=>{
     console.log(`port is running on ${port}.....`)
