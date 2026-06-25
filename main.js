@@ -20,13 +20,25 @@ console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
 const con = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
-con.connect()
-  .then(() => console.log("DB connected successfully 🟢"))
-  .catch(err => console.error("DB connection failed 🔴", err));
+(async () => {
+  try {
+    const result = await con.query("SELECT NOW()");
+    console.log("Database test successful:", result.rows[0]);
+  } catch (err) {
+    console.error("FULL DB ERROR:");
+    console.error(err);
+    console.error("MESSAGE:", err.message);
+    console.error("CODE:", err.code);
+    console.error("DETAIL:", err.detail);
+  }
+})();
+
+console.log(process.env.DATABASE_URL.slice(0, 30) + "...");
+
 // async functions
 
 
