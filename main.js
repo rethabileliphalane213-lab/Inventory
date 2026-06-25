@@ -19,9 +19,6 @@ console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
 
 const con = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
 });
 
 (async () => {
