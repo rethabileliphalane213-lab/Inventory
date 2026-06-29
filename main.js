@@ -190,15 +190,15 @@ const new_release = obj.date || oldGame.release_date
 
 // 
 
-app.get("/",async(req,res)=>{
+app.get("/", async (req, res) => {
   try {
     const table = await selectAll();
     res.render("home", { table: table.rows });
   } catch (err) {
     console.error("HOME ERROR:", err.message);
-    res.status(500).send("Database connection failed.");
+    res.render("home", { table: [] });
   }
-})
+});
 
 
 
