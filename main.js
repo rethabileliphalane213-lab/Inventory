@@ -196,7 +196,24 @@ app.get("/", async (req, res) => {
     res.render("home", { table: table.rows });
   } catch (err) {
     console.error("HOME ERROR:", err.message);
-    res.render("home", { table: [] });
+    res.render("home", {
+      table: [
+        {
+          id: 1,
+          game_name: "Sample Game",
+          genre: "Action",
+          game_type: "Singleplayer",
+          game_mode: "Offline",
+          release_date: "2024",
+          publisher: "Demo Publisher",
+          price: "0.00",
+          stock_qty: 9999,
+          platform: "PC",
+          rating: "5.0",
+          downloads: 999,
+        },
+      ],
+    });
   }
 });
 
