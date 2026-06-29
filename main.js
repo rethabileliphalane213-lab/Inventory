@@ -17,27 +17,46 @@ const all_games = require("./db/queries")
 
 console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
 
-const con = new Pool({
+const poolConfig = {
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+  max: 5,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
+};
+
+if (process.env.DATABASE_URL && /render\.com|postgresql:/.test(process.env.DATABASE_URL)) {
+  poolConfig.ssl = { rejectUnauthorized: false };
+}
+
+const con = new Pool(poolConfig);
 con.on("error", (err) => {
   console.error("POOL ERROR:", err);
 });
 
-(async () => {
-  try {
-    const result = await con.query("SELECT NOW()");
-    console.log("Database test successful:", result.rows[0]);
-  } catch (err) {
-    console.error("FULL DB ERROR:");
-    console.error(err);
-    console.error("MESSAGE:", err.message);
-    console.error("CODE:", err.code);
-    console.error("DETAIL:", err.detail);
+async function testDatabaseConnection(retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    try {
+      const result = await con.query("SELECT NOW()");
+      console.log("Database test successful:", result.rows[0]);
+      return true;
+    } catch (err) {
+      console.error(`FULL DB ERROR (attempt ${attempt}/${retries}):`);
+      console.error("MESSAGE:", err.message);
+      console.error("CODE:", err.code);
+      console.error("DETAIL:", err.detail);
+
+      if (attempt < retries) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    }
   }
+
+  console.error("Database is unavailable; continuing without DB for now.");
+  return false;
+}
+
+(async () => {
+  await testDatabaseConnection();
 })();
 
 
@@ -172,10 +191,13 @@ const new_release = obj.date || oldGame.release_date
 // 
 
 app.get("/",async(req,res)=>{
-const table= await selectAll()
-
-res.render("home",{table:table.rows})
-
+  try {
+    const table = await selectAll();
+    res.render("home", { table: table.rows });
+  } catch (err) {
+    console.error("HOME ERROR:", err.message);
+    res.status(500).send("Database connection failed.");
+  }
 })
 
 
