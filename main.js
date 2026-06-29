@@ -23,6 +23,9 @@ const con = new Pool({
     rejectUnauthorized: false,
   },
 });
+con.on("error", (err) => {
+  console.error("POOL ERROR:", err);
+});
 
 (async () => {
   try {
@@ -37,7 +40,7 @@ const con = new Pool({
   }
 })();
 
-console.log(process.env.DATABASE_URL.slice(0, 30) + "...");
+
 
 // async functions
 
@@ -48,11 +51,15 @@ console.log(process.env.DATABASE_URL.slice(0, 30) + "...");
 
 
 
-const selectAll=async()=>{
-
-   const table=await con.query("SELECT * FROM pc_games")
-   return table
-}
+const selectAll = async () => {
+  try {
+    const table = await con.query("SELECT * FROM pc_games");
+    return table;
+  } catch (err) {
+    console.error("SELECT ERROR:", err);
+    throw err;
+  }
+};
 
 async function getGameType(type){
     if(type==="all"){
@@ -266,10 +273,10 @@ res.redirect("/")
 
 
 
-const port = process.env.PORT || 1000
+const port = process.env.PORT || 3000
 
-app.listen(port,()=>{
-    console.log(`port is running on ${port}.....`)
+app.listen(port, "0.0.0.0", () => {
+  console.log(`port is running on http://0.0.0.0:${port}.....`)
 })
 
 module.exports=con

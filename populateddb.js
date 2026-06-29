@@ -1,5 +1,8 @@
 
 const { Client } = require("pg");
+require("dotenv").config();
+
+const connectionString = process.env.DATABASE_URL;
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS pc_games (
@@ -85,7 +88,8 @@ VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: "postgresql://postgres:rethabilenongs@localhost:5432/inventory",
+    connectionString,
+    ssl: { rejectUnauthorized: false },
   });
   await client.connect();
   await client.query(SQL);
